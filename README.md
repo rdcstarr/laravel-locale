@@ -30,6 +30,25 @@ Run the install command to publish and run migrations, then seed languages, coun
 php artisan locale:install
 ```
 
+### Manual installation
+
+If you prefer to control the process yourself, publish the migrations without running the install command:
+
+```bash
+php artisan vendor:publish --tag=laravel-locale-migrations
+```
+
+Then run the migrations and seed the reference data:
+
+```bash
+php artisan migrate
+php artisan db:seed --class="Rdcstarr\Locale\Database\Seeders\LanguagesSeeder"
+php artisan db:seed --class="Rdcstarr\Locale\Database\Seeders\CountriesSeeder"
+php artisan db:seed --class="Rdcstarr\Locale\Database\Seeders\CountryLanguageSeeder"
+```
+
+> **Note:** Migrations run automatically without publishing — skip `vendor:publish` if you do not need to modify the migration files.
+
 ---
 
 ## Translations
