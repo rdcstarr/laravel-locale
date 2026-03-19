@@ -34,8 +34,8 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Rdcstarr\\Locale\\Database\\": "database/",
-			"Rdcstarr\\Locale\\": "src/"
+			"Rdcstarr\\Locale\\": "src/",
+			"Rdcstarr\\Locale\\Database\\Seeders\\": "database/seeders/"
 		},
 		"files": [
 			"src/helpers.php"
