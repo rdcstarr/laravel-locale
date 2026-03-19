@@ -12,9 +12,9 @@ Database-driven language, country and translation management for Laravel 12.
 ## Requirements
 
 | Dependency | Version |
-|---|---|
-| PHP | ^8.3 |
-| Laravel | ^12.0 |
+| ---------- | ------- |
+| PHP        | ^8.3    |
+| Laravel    | ^12.0   |
 
 ---
 
@@ -166,37 +166,37 @@ Locale::countries()->with('primaryLanguage')->get();
 
 ### `Language`
 
-| Column | Type | Notes |
-|---|---|---|
-| `id` | bigint | |
-| `name` | string | e.g. `Romanian` |
-| `code` | string(5) | ISO 639-1, e.g. `ro` |
-| `enabled` | boolean | default `true` |
-| `default` | boolean | default `false` |
+| Column    | Type      | Notes                |
+| --------- | --------- | -------------------- |
+| `id`      | bigint    |                      |
+| `name`    | string    | e.g. `Romanian`      |
+| `code`    | string(5) | ISO 639-1, e.g. `ro` |
+| `enabled` | boolean   | default `true`       |
+| `default` | boolean   | default `false`      |
 
 ### `Country`
 
-| Column | Type | Notes |
-|---|---|---|
-| `id` | bigint | |
-| `name` | string | e.g. `Romania` |
-| `code` | string(2) | ISO 3166-1 alpha-2, e.g. `RO` |
-| `flag` | string | URL or path |
-| `flag_emoji` | string | e.g. `🇷🇴` |
-| `timezone` | string | e.g. `Europe/Bucharest` |
-| `primary_language_id` | FK → languages | |
+| Column                | Type           | Notes                         |
+| --------------------- | -------------- | ----------------------------- |
+| `id`                  | bigint         |                               |
+| `name`                | string         | e.g. `Romania`                |
+| `code`                | string(2)      | ISO 3166-1 alpha-2, e.g. `RO` |
+| `flag`                | string         | URL or path                   |
+| `flag_emoji`          | string         | e.g. `🇷🇴`                     |
+| `timezone`            | string         | e.g. `Europe/Bucharest`       |
+| `primary_language_id` | FK → languages |                               |
 
 The `country_language` pivot table stores all official languages per country with an `is_official` boolean.
 
 ### `Translation`
 
-| Column | Type | Notes |
-|---|---|---|
-| `id` | bigint | |
-| `group` | string | e.g. `messages`, `auth` — use `*` for ungrouped keys |
-| `key` | string | e.g. `welcome` |
-| `language_code` | string(10) | ISO 639-1, e.g. `ro` |
-| `value` | text | Supports `:placeholder` and `singular\|plural` format |
+| Column          | Type       | Notes                                                 |
+| --------------- | ---------- | ----------------------------------------------------- |
+| `id`            | bigint     |                                                       |
+| `group`         | string     | e.g. `messages`, `auth` — use `*` for ungrouped keys  |
+| `key`           | string     | e.g. `welcome`                                        |
+| `language_code` | string(10) | ISO 639-1, e.g. `ro`                                  |
+| `value`         | text       | Supports `:placeholder` and `singular\|plural` format |
 
 Unique constraint on `(group, key, language_code)`.
 
@@ -211,7 +211,3 @@ Unique constraint on `(group, key, language_code)`.
 When a `Translation` model is saved or deleted, the `InvalidateTranslationCache` listener flushes both the in-memory array and the persistent cache entry for that locale.
 
 ---
-
-## License
-
-MIT
