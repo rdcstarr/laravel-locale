@@ -31,7 +31,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Rdcstarr\\Locale\\": "src/"
+            "Rdcstarr\\Locale\\": "src/",
+            "Rdcstarr\\Locale\\Database\\": "database/"
         },
         "files": [
             "src/helpers.php"
@@ -39,8 +40,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Rdcstarr\\Locale\\Tests\\": "tests/",
-            "Rdcstarr\\Locale\\Database\\": "database/"
+            "Rdcstarr\\Locale\\Tests\\": "tests/"
         }
     },
     "extra": {
