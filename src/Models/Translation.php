@@ -4,25 +4,19 @@ declare(strict_types=1);
 
 namespace Rdcstarr\Locale\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Rdcstarr\Locale\Events\TranslationCreated;
 use Rdcstarr\Locale\Events\TranslationDeleted;
 use Rdcstarr\Locale\Events\TranslationUpdated;
 
+#[WithoutTimestamps]
+#[Fillable('group', 'key', 'language_code', 'value')]
 class Translation extends Model
 {
-    /** @var bool */
-    public $timestamps = false;
-
-    /** @var list<string> */
-    protected $fillable = [
-        'group',
-        'key',
-        'language_code',
-        'value',
-    ];
-
     /** @var array<string, class-string> */
     protected $dispatchesEvents = [
         'created' => TranslationCreated::class,
@@ -37,7 +31,8 @@ class Translation extends Model
      * @param  string               $locale
      * @return Builder<Translation>
      */
-    public function scopeForLocale(Builder $query, string $locale): Builder
+    #[Scope]
+    protected function forLocale(Builder $query, string $locale): Builder
     {
         return $query->where('language_code', $locale);
     }
@@ -49,7 +44,8 @@ class Translation extends Model
      * @param  string               $group
      * @return Builder<Translation>
      */
-    public function scopeForGroup(Builder $query, string $group): Builder
+    #[Scope]
+    protected function forGroup(Builder $query, string $group): Builder
     {
         return $query->where('group', $group);
     }

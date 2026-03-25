@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Rdcstarr\Locale\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -12,19 +15,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Rdcstarr\Locale\Observers\LanguageObserver;
 
 #[ObservedBy(LanguageObserver::class)]
+#[WithoutTimestamps]
+#[Fillable('name', 'code', 'enabled', 'default')]
 class Language extends Model
 {
-    /** @var bool */
-    public $timestamps = false;
-
-    /** @var list<string> */
-    protected $fillable = [
-        'name',
-        'code',
-        'enabled',
-        'default',
-    ];
-
     /** @var array<string, string> */
     protected $casts = [
         'enabled' => 'boolean',
@@ -48,7 +42,8 @@ class Language extends Model
      * @param  Builder<Language> $query
      * @return Builder<Language>
      */
-    public function scopeEnabled(Builder $query): Builder
+    #[Scope]
+    protected function enabled(Builder $query): Builder
     {
         return $query->where('enabled', true);
     }
@@ -59,7 +54,8 @@ class Language extends Model
      * @param  Builder<Language> $query
      * @return Builder<Language>
      */
-    public function scopeDefault(Builder $query): Builder
+    #[Scope]
+    protected function default(Builder $query): Builder
     {
         return $query->where('default', true);
     }

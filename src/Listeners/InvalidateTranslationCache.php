@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 namespace Rdcstarr\Locale\Listeners;
 
-use Illuminate\Events\Attributes\AsEventListener;
 use Rdcstarr\Locale\Events\TranslationCreated;
 use Rdcstarr\Locale\Events\TranslationDeleted;
 use Rdcstarr\Locale\Events\TranslationUpdated;
 use Rdcstarr\Locale\TranslationService;
 
-#[AsEventListener(TranslationCreated::class)]
-#[AsEventListener(TranslationUpdated::class)]
-#[AsEventListener(TranslationDeleted::class)]
 final class InvalidateTranslationCache
 {
     /**

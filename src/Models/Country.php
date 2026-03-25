@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Rdcstarr\Locale\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -14,21 +17,10 @@ use Illuminate\Support\Str;
 use Rdcstarr\Locale\Observers\CountryObserver;
 
 #[ObservedBy(CountryObserver::class)]
+#[WithoutTimestamps]
+#[Fillable('name', 'code', 'flag', 'flag_emoji', 'timezone', 'primary_language_id')]
 class Country extends Model
 {
-    /** @var bool */
-    public $timestamps = false;
-
-    /** @var list<string> */
-    protected $fillable = [
-        'name',
-        'code',
-        'flag',
-        'flag_emoji',
-        'timezone',
-        'primary_language_id',
-    ];
-
     /** @var array<string, string> */
     protected $casts = [
         'primary_language_id' => 'integer',
@@ -72,7 +64,8 @@ class Country extends Model
      * @param  string           $code
      * @return Builder<Country>
      */
-    public function scopeByCode(Builder $query, string $code): Builder
+    #[Scope]
+    protected function byCode(Builder $query, string $code): Builder
     {
         return $query->where('code', Str::upper($code));
     }
@@ -83,7 +76,8 @@ class Country extends Model
      * @param  Builder<Country> $query
      * @return Builder<Country>
      */
-    public function scopeWithPrimaryLanguage(Builder $query): Builder
+    #[Scope]
+    protected function withPrimaryLanguage(Builder $query): Builder
     {
         return $query->with('primaryLanguage');
     }
@@ -95,7 +89,8 @@ class Country extends Model
      * @param  string           $languageCode
      * @return Builder<Country>
      */
-    public function scopeForLanguage(Builder $query, string $languageCode): Builder
+    #[Scope]
+    protected function forLanguage(Builder $query, string $languageCode): Builder
     {
         return $query->whereHas('languages', function (Builder $q) use ($languageCode)
         {

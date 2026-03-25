@@ -1,6 +1,6 @@
 # laravel-locale
 
-Database-driven language, country and translation management for Laravel 12.
+Database-driven language, country and translation management for Laravel 13.
 
 - **Languages** — ISO 639-1, enabled/default flags
 - **Countries** — ISO 3166-1 alpha-2, flag emoji, timezone, primary language
@@ -14,7 +14,7 @@ Database-driven language, country and translation management for Laravel 12.
 | Dependency | Version |
 | ---------- | ------- |
 | PHP        | ^8.3    |
-| Laravel    | ^12.0   |
+| Laravel    | ^13.0   |
 
 ---
 
