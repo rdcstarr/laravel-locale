@@ -18,7 +18,7 @@ use Rdcstarr\Locale\Observers\CountryObserver;
 
 #[ObservedBy(CountryObserver::class)]
 #[WithoutTimestamps]
-#[Fillable('name', 'code', 'flag', 'flag_emoji', 'timezone', 'primary_language_id')]
+#[Fillable(['name', 'code', 'flag', 'flag_emoji', 'timezone', 'primary_language_id'])]
 class Country extends Model
 {
     /** @var array<string, string> */

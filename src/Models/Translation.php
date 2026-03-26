@@ -14,7 +14,7 @@ use Rdcstarr\Locale\Events\TranslationDeleted;
 use Rdcstarr\Locale\Events\TranslationUpdated;
 
 #[WithoutTimestamps]
-#[Fillable('group', 'key', 'language_code', 'value')]
+#[Fillable(['group', 'key', 'language_code', 'value'])]
 class Translation extends Model
 {
     /** @var array<string, class-string> */
