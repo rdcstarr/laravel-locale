@@ -3,7 +3,7 @@
 Database-driven language, country and translation management for Laravel 13.
 
 - **Languages** — ISO 639-1, enabled/default flags
-- **Countries** — ISO 3166-1 alpha-2, flag emoji, timezone, primary language
+- **Countries** — ISO 3166-1 alpha-2, flag emoji, timezone, E.164 calling code, primary language
 - **Translations** — database-backed `loc()` helper, equivalent to Laravel's `__()`
 - **Octane-safe** — single DB query per locale per worker lifetime, in-memory + persistent cache
 
@@ -150,6 +150,14 @@ use Locale;
 // Find by ISO 3166-1 alpha-2 code
 Locale::countryByCode('RO');
 
+// Phone prefix (ITU-T E.164, e.g. "+40")
+Locale::callingCodeByCode('RO');     // → "+40"
+country_calling_code('RO');          // → "+40"  (global helper)
+Locale::countryByCode('RO')->calling_code;  // direct model access
+
+// All countries sharing a calling code (e.g. NANP "+1")
+Locale::countries()->byCallingCode('+1')->get();
+
 // All countries that use a given language
 Locale::countriesForLanguage('ro');
 
@@ -184,6 +192,7 @@ Locale::countries()->with('primaryLanguage')->get();
 | `flag`                | string         | URL or path                   |
 | `flag_emoji`          | string         | e.g. `🇷🇴`                     |
 | `timezone`            | string         | e.g. `Europe/Bucharest`       |
+| `calling_code`        | string(10)     | ITU-T E.164, e.g. `+40`, `+1` |
 | `primary_language_id` | FK → languages |                               |
 
 The `country_language` pivot table stores all official languages per country with an `is_official` boolean.

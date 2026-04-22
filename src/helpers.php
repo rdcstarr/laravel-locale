@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rdcstarr\Locale\LocaleService;
 use Rdcstarr\Locale\TranslationService;
 
 if (!function_exists('loc'))
@@ -21,5 +22,19 @@ if (!function_exists('loc'))
     function loc(string $key, array $replace = [], ?string $locale = null): string
     {
         return app(TranslationService::class)->trans($key, $replace, $locale);
+    }
+}
+
+if (!function_exists('country_calling_code'))
+{
+    /**
+     * Return the ITU-T E.164 calling code for a country (e.g. "+40"), or null if unknown.
+     *
+     * @param  string      $code ISO 3166-1 alpha-2, case-insensitive
+     * @return string|null
+     */
+    function country_calling_code(string $code): ?string
+    {
+        return app(LocaleService::class)->callingCodeByCode($code);
     }
 }

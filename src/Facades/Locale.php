@@ -18,6 +18,7 @@ use Rdcstarr\Locale\Models\Language;
  * @method static Collection<string, int>   enabledLanguageCodeToId()
  * @method static Builder<Language>          languages()
  * @method static Country|null              countryByCode(string $code)
+ * @method static string|null               callingCodeByCode(string $code)
  * @method static Collection<string, int>   countryCodeToId()
  * @method static Collection<int, Country>  countriesForLanguage(string $languageCode)
  * @method static Builder<Country>          countries()

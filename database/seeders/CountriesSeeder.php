@@ -18,7 +18,8 @@ final class CountriesSeeder extends Seeder
      */
     public function run(): void
     {
-        $languageIds = Language::pluck('id', 'code');
+        $languageIds  = Language::pluck('id', 'code');
+        $callingCodes = require __DIR__ . '/../data/calling-codes.php';
 
         $countries = [
             // ── Europe ──────────────────────────────────────────────────────
@@ -1600,14 +1601,15 @@ final class CountriesSeeder extends Seeder
             ],
         ];
 
-        collect($countries)->each(function (array $data) use ($languageIds)
+        collect($countries)->each(function (array $data) use ($languageIds, $callingCodes)
         {
             $primaryCode = $data['primary_language_code'];
             unset($data['primary_language_code']);
 
             $data['primary_language_id'] = $languageIds[$primaryCode] ?? null;
+            $data['calling_code']        = $callingCodes[$data['code']] ?? null;
 
-            Country::create($data);
+            Country::updateOrCreate(['code' => $data['code']], $data);
         });
     }
 }

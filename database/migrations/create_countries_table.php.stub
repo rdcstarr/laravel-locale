@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('flag')->nullable()->comment('Lowercase country code for flag icon libraries');
             $table->string('flag_emoji', 10)->nullable()->comment('Unicode flag emoji');
             $table->string('timezone')->nullable()->comment('Primary IANA timezone identifier');
+            $table->string('calling_code', 10)->nullable()->comment('ITU-T E.164 country calling code, e.g. +40');
             $table->foreignId('primary_language_id')
                 ->nullable()
                 ->constrained('languages')

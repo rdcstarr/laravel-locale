@@ -18,7 +18,7 @@ use Rdcstarr\Locale\Observers\CountryObserver;
 
 #[ObservedBy(CountryObserver::class)]
 #[WithoutTimestamps]
-#[Fillable(['name', 'code', 'flag', 'flag_emoji', 'timezone', 'primary_language_id'])]
+#[Fillable(['name', 'code', 'flag', 'flag_emoji', 'timezone', 'calling_code', 'primary_language_id'])]
 class Country extends Model
 {
     /** @var array<string, string> */
@@ -68,6 +68,19 @@ class Country extends Model
     protected function byCode(Builder $query, string $code): Builder
     {
         return $query->where('code', Str::upper($code));
+    }
+
+    /**
+     * Filter countries by ITU-T E.164 calling code (e.g. "+40", "+1").
+     *
+     * @param  Builder<Country> $query
+     * @param  string           $callingCode
+     * @return Builder<Country>
+     */
+    #[Scope]
+    protected function byCallingCode(Builder $query, string $callingCode): Builder
+    {
+        return $query->where('calling_code', $callingCode);
     }
 
     /**

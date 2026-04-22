@@ -75,6 +75,17 @@ final class LocaleService
     }
 
     /**
+     * Return the ITU-T E.164 calling code for a country (e.g. "+40"), or null if unknown.
+     *
+     * @param  string      $code ISO 3166-1 alpha-2
+     * @return string|null
+     */
+    public function callingCodeByCode(string $code): ?string
+    {
+        return Country::byCode($code)->value('calling_code');
+    }
+
+    /**
      * Return a code → id map for all countries.
      *
      * @return Collection<string, int>
