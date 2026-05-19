@@ -16,7 +16,7 @@ use Rdcstarr\Locale\Observers\LanguageObserver;
 
 #[ObservedBy(LanguageObserver::class)]
 #[WithoutTimestamps]
-#[Fillable(['name', 'code', 'enabled', 'default'])]
+#[Fillable(['name', 'code', 'flag_country_code', 'enabled', 'default'])]
 class Language extends Model
 {
     /** @var array<string, string> */
