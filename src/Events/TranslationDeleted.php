@@ -10,14 +10,14 @@ use Rdcstarr\Locale\Models\Translation;
 
 final class TranslationDeleted
 {
-    use Dispatchable, SerializesModels;
+	use Dispatchable, SerializesModels;
 
-    /**
-     * Create a new TranslationDeleted event.
-     *
-     * @param Translation $translation
-     */
-    public function __construct(public readonly Translation $translation)
-    {
-    }
+	/**
+	 * Create a new TranslationDeleted event.
+	 *
+	 * @param Translation $translation
+	 */
+	public function __construct(public readonly Translation $translation)
+	{
+	}
 }

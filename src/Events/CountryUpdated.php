@@ -10,14 +10,14 @@ use Rdcstarr\Locale\Models\Country;
 
 final class CountryUpdated
 {
-    use Dispatchable, SerializesModels;
+	use Dispatchable, SerializesModels;
 
-    /**
-     * Create a new CountryUpdated event.
-     *
-     * @param Country $country
-     */
-    public function __construct(public readonly Country $country)
-    {
-    }
+	/**
+	 * Create a new CountryUpdated event.
+	 *
+	 * @param Country $country
+	 */
+	public function __construct(public readonly Country $country)
+	{
+	}
 }

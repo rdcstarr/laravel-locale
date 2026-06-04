@@ -10,14 +10,14 @@ use Rdcstarr\Locale\Models\Country;
 
 final class CountryDeleted
 {
-    use Dispatchable, SerializesModels;
+	use Dispatchable, SerializesModels;
 
-    /**
-     * Create a new CountryDeleted event.
-     *
-     * @param Country $country
-     */
-    public function __construct(public readonly Country $country)
-    {
-    }
+	/**
+	 * Create a new CountryDeleted event.
+	 *
+	 * @param Country $country
+	 */
+	public function __construct(public readonly Country $country)
+	{
+	}
 }

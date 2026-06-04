@@ -10,14 +10,14 @@ use Rdcstarr\Locale\Models\Language;
 
 final class LanguageDeleted
 {
-    use Dispatchable, SerializesModels;
+	use Dispatchable, SerializesModels;
 
-    /**
-     * Create a new LanguageDeleted event.
-     *
-     * @param Language $language
-     */
-    public function __construct(public readonly Language $language)
-    {
-    }
+	/**
+	 * Create a new LanguageDeleted event.
+	 *
+	 * @param Language $language
+	 */
+	public function __construct(public readonly Language $language)
+	{
+	}
 }

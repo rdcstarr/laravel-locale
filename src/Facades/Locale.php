@@ -27,13 +27,13 @@ use Rdcstarr\Locale\Models\Language;
  */
 final class Locale extends Facade
 {
-    /**
-     * Return the facade accessor key bound in the container.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor(): string
-    {
-        return LocaleService::class;
-    }
+	/**
+	 * Return the facade accessor key bound in the container.
+	 *
+	 * @return string
+	 */
+	protected static function getFacadeAccessor(): string
+	{
+		return LocaleService::class;
+	}
 }

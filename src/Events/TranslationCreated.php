@@ -10,14 +10,14 @@ use Rdcstarr\Locale\Models\Translation;
 
 final class TranslationCreated
 {
-    use Dispatchable, SerializesModels;
+	use Dispatchable, SerializesModels;
 
-    /**
-     * Create a new TranslationCreated event.
-     *
-     * @param Translation $translation
-     */
-    public function __construct(public readonly Translation $translation)
-    {
-    }
+	/**
+	 * Create a new TranslationCreated event.
+	 *
+	 * @param Translation $translation
+	 */
+	public function __construct(public readonly Translation $translation)
+	{
+	}
 }

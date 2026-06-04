@@ -17,36 +17,36 @@ use Rdcstarr\Locale\Events\TranslationUpdated;
 #[Fillable(['group', 'key', 'language_code', 'value'])]
 class Translation extends Model
 {
-    /** @var array<string, class-string> */
-    protected $dispatchesEvents = [
-        'created' => TranslationCreated::class,
-        'updated' => TranslationUpdated::class,
-        'deleted' => TranslationDeleted::class,
-    ];
+	/** @var array<string, class-string> */
+	protected $dispatchesEvents = [
+		'created' => TranslationCreated::class,
+		'updated' => TranslationUpdated::class,
+		'deleted' => TranslationDeleted::class,
+	];
 
-    /**
-     * Limit results to a given locale.
-     *
-     * @param  Builder<Translation> $query
-     * @param  string               $locale
-     * @return Builder<Translation>
-     */
-    #[Scope]
-    protected function forLocale(Builder $query, string $locale): Builder
-    {
-        return $query->where('language_code', $locale);
-    }
+	/**
+	 * Limit results to a given locale.
+	 *
+	 * @param  Builder<Translation> $query
+	 * @param  string               $locale
+	 * @return Builder<Translation>
+	 */
+	#[Scope]
+	protected function forLocale(Builder $query, string $locale): Builder
+	{
+		return $query->where('language_code', $locale);
+	}
 
-    /**
-     * Limit results to a given group.
-     *
-     * @param  Builder<Translation> $query
-     * @param  string               $group
-     * @return Builder<Translation>
-     */
-    #[Scope]
-    protected function forGroup(Builder $query, string $group): Builder
-    {
-        return $query->where('group', $group);
-    }
+	/**
+	 * Limit results to a given group.
+	 *
+	 * @param  Builder<Translation> $query
+	 * @param  string               $group
+	 * @return Builder<Translation>
+	 */
+	#[Scope]
+	protected function forGroup(Builder $query, string $group): Builder
+	{
+		return $query->where('group', $group);
+	}
 }

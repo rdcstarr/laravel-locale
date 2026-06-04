@@ -18,13 +18,13 @@ use Rdcstarr\Locale\TranslationService;
  */
 final class Translate extends Facade
 {
-    /**
-     * Return the facade accessor key bound in the container.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor(): string
-    {
-        return TranslationService::class;
-    }
+	/**
+	 * Return the facade accessor key bound in the container.
+	 *
+	 * @return string
+	 */
+	protected static function getFacadeAccessor(): string
+	{
+		return TranslationService::class;
+	}
 }

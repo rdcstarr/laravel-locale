@@ -14,30 +14,29 @@ use Rdcstarr\Locale\TranslationService;
 #[Description('Clear the cached database translations (persistent cache + Octane in-memory layer)')]
 final class ClearTranslationCache extends Command
 {
+	/**
+	 * Execute the command.
+	 *
+	 * @param  TranslationService $service
+	 * @return void
+	 */
+	public function handle(TranslationService $service): void
+	{
+		$locale = (string) $this->option('locale');
 
-    /**
-     * Execute the command.
-     *
-     * @param  TranslationService $service
-     * @return void
-     */
-    public function handle(TranslationService $service): void
-    {
-        $locale = (string) $this->option('locale');
+		if (filled($locale))
+		{
+			$service->flushLocale($locale);
+			$this->info("Translation cache cleared for locale [{$locale}].");
 
-        if (filled($locale))
-        {
-            $service->flushLocale($locale);
-            $this->info("Translation cache cleared for locale [{$locale}].");
+			return;
+		}
 
-            return;
-        }
+		Translation::query()
+			->distinct()
+			->pluck('language_code')
+			->each($service->flushLocale(...));
 
-        Translation::query()
-            ->distinct()
-            ->pluck('language_code')
-            ->each($service->flushLocale(...));
-
-        $this->info('Translation cache cleared for all locales.');
-    }
+		$this->info('Translation cache cleared for all locales.');
+	}
 }

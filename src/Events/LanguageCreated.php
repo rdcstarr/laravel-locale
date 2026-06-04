@@ -10,14 +10,14 @@ use Rdcstarr\Locale\Models\Language;
 
 final class LanguageCreated
 {
-    use Dispatchable, SerializesModels;
+	use Dispatchable, SerializesModels;
 
-    /**
-     * Create a new LanguageCreated event.
-     *
-     * @param Language $language
-     */
-    public function __construct(public readonly Language $language)
-    {
-    }
+	/**
+	 * Create a new LanguageCreated event.
+	 *
+	 * @param Language $language
+	 */
+	public function __construct(public readonly Language $language)
+	{
+	}
 }

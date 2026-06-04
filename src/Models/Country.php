@@ -21,114 +21,114 @@ use Rdcstarr\Locale\Observers\CountryObserver;
 #[Fillable(['name', 'code', 'flag', 'flag_emoji', 'timezone', 'calling_code', 'primary_language_id'])]
 class Country extends Model
 {
-    /** @var array<string, string> */
-    protected $casts = [
-        'primary_language_id' => 'integer',
-    ];
+	/** @var array<string, string> */
+	protected $casts = [
+		'primary_language_id' => 'integer',
+	];
 
-    /**
-     * The primary language spoken in this country.
-     *
-     * @return BelongsTo<Language, $this>
-     */
-    public function primaryLanguage(): BelongsTo
-    {
-        return $this->belongsTo(Language::class, 'primary_language_id');
-    }
+	/**
+	 * The primary language spoken in this country.
+	 *
+	 * @return BelongsTo<Language, $this>
+	 */
+	public function primaryLanguage(): BelongsTo
+	{
+		return $this->belongsTo(Language::class, 'primary_language_id');
+	}
 
-    /**
-     * All languages officially used in this country.
-     *
-     * @return BelongsToMany<Language, $this>
-     */
-    public function languages(): BelongsToMany
-    {
-        return $this->belongsToMany(Language::class, 'country_language')
-            ->withPivot('is_official');
-    }
+	/**
+	 * All languages officially used in this country.
+	 *
+	 * @return BelongsToMany<Language, $this>
+	 */
+	public function languages(): BelongsToMany
+	{
+		return $this->belongsToMany(Language::class, 'country_language')
+			->withPivot('is_official');
+	}
 
-    /**
-     * Only the officially recognised languages of this country.
-     *
-     * @return BelongsToMany<Language, $this>
-     */
-    public function officialLanguages(): BelongsToMany
-    {
-        return $this->languages()->wherePivot('is_official', true);
-    }
+	/**
+	 * Only the officially recognised languages of this country.
+	 *
+	 * @return BelongsToMany<Language, $this>
+	 */
+	public function officialLanguages(): BelongsToMany
+	{
+		return $this->languages()->wherePivot('is_official', true);
+	}
 
-    /**
-     * Filter countries by ISO 3166-1 alpha-2 code (case-insensitive).
-     *
-     * @param  Builder<Country> $query
-     * @param  string           $code
-     * @return Builder<Country>
-     */
-    #[Scope]
-    protected function byCode(Builder $query, string $code): Builder
-    {
-        return $query->where('code', Str::upper($code));
-    }
+	/**
+	 * Find a country by its ISO 3166-1 alpha-2 code.
+	 *
+	 * @param  string       $code
+	 * @return static|null
+	 */
+	public static function findByCode(string $code): ?static
+	{
+		return static::byCode($code)->first();
+	}
 
-    /**
-     * Filter countries by ITU-T E.164 calling code (e.g. "+40", "+1").
-     *
-     * @param  Builder<Country> $query
-     * @param  string           $callingCode
-     * @return Builder<Country>
-     */
-    #[Scope]
-    protected function byCallingCode(Builder $query, string $callingCode): Builder
-    {
-        return $query->where('calling_code', $callingCode);
-    }
+	/**
+	 * Return a code → id map for all countries.
+	 *
+	 * @return Collection<string, int>
+	 */
+	public static function codeToId(): Collection
+	{
+		return static::pluck('id', 'code');
+	}
 
-    /**
-     * Eager-load the primary language relationship.
-     *
-     * @param  Builder<Country> $query
-     * @return Builder<Country>
-     */
-    #[Scope]
-    protected function withPrimaryLanguage(Builder $query): Builder
-    {
-        return $query->with('primaryLanguage');
-    }
+	/**
+	 * Filter countries by ISO 3166-1 alpha-2 code (case-insensitive).
+	 *
+	 * @param  Builder<Country> $query
+	 * @param  string           $code
+	 * @return Builder<Country>
+	 */
+	#[Scope]
+	protected function byCode(Builder $query, string $code): Builder
+	{
+		return $query->where('code', Str::upper($code));
+	}
 
-    /**
-     * Filter countries that have a specific language via the pivot.
-     *
-     * @param  Builder<Country> $query
-     * @param  string           $languageCode
-     * @return Builder<Country>
-     */
-    #[Scope]
-    protected function forLanguage(Builder $query, string $languageCode): Builder
-    {
-        return $query->whereHas('languages', function (Builder $q) use ($languageCode)
-        {
-            $q->where('code', Str::lower($languageCode));
-        });
-    }
+	/**
+	 * Filter countries by ITU-T E.164 calling code (e.g. "+40", "+1").
+	 *
+	 * @param  Builder<Country> $query
+	 * @param  string           $callingCode
+	 * @return Builder<Country>
+	 */
+	#[Scope]
+	protected function byCallingCode(Builder $query, string $callingCode): Builder
+	{
+		return $query->where('calling_code', $callingCode);
+	}
 
-    /**
-     * Find a country by its ISO 3166-1 alpha-2 code.
-     *
-     * @param  string       $code
-     * @return static|null
-     */
-    public static function findByCode(string $code): ?static
-    {
-        return static::byCode($code)->first();
-    }
+	/**
+	 * Eager-load the primary language relationship.
+	 *
+	 * @param  Builder<Country> $query
+	 * @return Builder<Country>
+	 */
+	#[Scope]
+	protected function withPrimaryLanguage(Builder $query): Builder
+	{
+		return $query->with('primaryLanguage');
+	}
 
-    /**
-     * Return a code → id map for all countries.
-     *
-     * @return Collection<string, int>
-     */
-    public static function codeToId(): Collection
-    {
-        return static::pluck('id', 'code');
-    }
+	/**
+	 * Filter countries that have a specific language via the pivot.
+	 *
+	 * @param  Builder<Country> $query
+	 * @param  string           $languageCode
+	 * @return Builder<Country>
+	 */
+	#[Scope]
+	protected function forLanguage(Builder $query, string $languageCode): Builder
+	{
+		return $query->whereHas('languages', function (Builder $q) use ($languageCode)
+		{
+			$q->where('code', Str::lower($languageCode));
+		});
+	}
 }

@@ -6,34 +6,34 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migration.
-     *
-     * @return void
-     */
-    public function up(): void
-    {
-        Schema::create('country_language', function (Blueprint $table)
-        {
-            $table->foreignId('country_id')
-                ->constrained('countries')
-                ->cascadeOnDelete();
-            $table->foreignId('language_id')
-                ->constrained('languages')
-                ->cascadeOnDelete();
-            $table->boolean('is_official')->default(true);
+	/**
+	 * Run the migration.
+	 *
+	 * @return void
+	 */
+	public function up(): void
+	{
+		Schema::create('country_language', function (Blueprint $table)
+		{
+			$table->foreignId('country_id')
+				->constrained('countries')
+				->cascadeOnDelete();
+			$table->foreignId('language_id')
+				->constrained('languages')
+				->cascadeOnDelete();
+			$table->boolean('is_official')->default(true);
 
-            $table->primary(['country_id', 'language_id']);
-        });
-    }
+			$table->primary(['country_id', 'language_id']);
+		});
+	}
 
-    /**
-     * Reverse the migration.
-     *
-     * @return void
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('country_language');
-    }
+	/**
+	 * Reverse the migration.
+	 *
+	 * @return void
+	 */
+	public function down(): void
+	{
+		Schema::dropIfExists('country_language');
+	}
 };

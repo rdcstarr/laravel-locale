@@ -6,31 +6,31 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migration.
-     *
-     * @return void
-     */
-    public function up(): void
-    {
-        Schema::create('languages', function (Blueprint $table)
-        {
-            $table->id();
-            $table->string('name')->unique();
-            $table->string('code', 5)->unique()->comment('ISO 639-1 code, e.g. en, fr, de');
-            $table->string('flag_country_code', 2)->nullable()->comment('ISO 3166-1 alpha-2 of the country to use for the flag (UX preference)');
-            $table->boolean('enabled')->default(true);
-            $table->boolean('default')->default(false);
-        });
-    }
+	/**
+	 * Run the migration.
+	 *
+	 * @return void
+	 */
+	public function up(): void
+	{
+		Schema::create('languages', function (Blueprint $table)
+		{
+			$table->id();
+			$table->string('name')->unique();
+			$table->string('code', 5)->unique()->comment('ISO 639-1 code, e.g. en, fr, de');
+			$table->string('flag_country_code', 2)->nullable()->comment('ISO 3166-1 alpha-2 of the country to use for the flag (UX preference)');
+			$table->boolean('enabled')->default(true);
+			$table->boolean('default')->default(false);
+		});
+	}
 
-    /**
-     * Reverse the migration.
-     *
-     * @return void
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('languages');
-    }
+	/**
+	 * Reverse the migration.
+	 *
+	 * @return void
+	 */
+	public function down(): void
+	{
+		Schema::dropIfExists('languages');
+	}
 };
