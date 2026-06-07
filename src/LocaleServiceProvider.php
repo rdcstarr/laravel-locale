@@ -29,11 +29,7 @@ final class LocaleServiceProvider extends PackageServiceProvider
 	{
 		$package
 			->name('laravel-locale')
-			->hasMigration('create_languages_table')
-			->hasMigration('create_countries_table')
-			->hasMigration('add_calling_code_to_countries_table')
-			->hasMigration('create_country_language_table')
-			->hasMigration('create_translations_table')
+			->discoversMigrations()
 			->runsMigrations()
 			->hasCommand(ClearTranslationCache::class)
 			->hasInstallCommand(function (InstallCommand $command)
