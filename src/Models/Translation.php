@@ -17,6 +17,14 @@ use Rdcstarr\Locale\Events\TranslationUpdated;
 #[Fillable(['group', 'key', 'language_code', 'value'])]
 class Translation extends Model
 {
+	/**
+	 * Named `locale_translations` (not the generic `translations`) so the package
+	 * never collides with a host app's own content-translations table.
+	 *
+	 * @var string
+	 */
+	protected $table = 'locale_translations';
+
 	/** @var array<string, class-string> */
 	protected $dispatchesEvents = [
 		'created' => TranslationCreated::class,
