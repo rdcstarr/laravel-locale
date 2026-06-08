@@ -1,16 +1,14 @@
 {
 	"name": "rdcstarr/laravel-locale",
-	"description": "Database-driven language, country and translation management for Laravel.",
+	"description": "Database-driven language and country management for Laravel.",
 	"type": "library",
 	"keywords": [
 		"laravel",
 		"locale",
 		"language",
 		"country",
-		"translation",
 		"i18n",
 		"l10n",
-		"database-translations",
 		"octane"
 	],
 	"homepage": "https://github.com/rdcstarr/laravel-locale",
@@ -52,8 +50,7 @@
 				"Rdcstarr\\Locale\\LocaleServiceProvider"
 			],
 			"aliases": {
-				"Locale": "Rdcstarr\\Locale\\Facades\\Locale",
-				"Translate": "Rdcstarr\\Locale\\Facades\\Translate"
+				"Locale": "Rdcstarr\\Locale\\Facades\\Locale"
 			}
 		}
 	},

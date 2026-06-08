@@ -4,15 +4,9 @@ declare(strict_types=1);
 
 namespace Rdcstarr\Locale;
 
-use Illuminate\Support\Facades\Event;
-use Rdcstarr\Locale\Commands\ClearTranslationCache;
 use Rdcstarr\Locale\Database\Seeders\CountriesSeeder;
 use Rdcstarr\Locale\Database\Seeders\CountryLanguageSeeder;
 use Rdcstarr\Locale\Database\Seeders\LanguagesSeeder;
-use Rdcstarr\Locale\Events\TranslationCreated;
-use Rdcstarr\Locale\Events\TranslationDeleted;
-use Rdcstarr\Locale\Events\TranslationUpdated;
-use Rdcstarr\Locale\Listeners\InvalidateTranslationCache;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -31,7 +25,6 @@ final class LocaleServiceProvider extends PackageServiceProvider
 			->name('laravel-locale')
 			->discoversMigrations()
 			->runsMigrations()
-			->hasCommand(ClearTranslationCache::class)
 			->hasInstallCommand(function (InstallCommand $command)
 			{
 				$command
@@ -59,19 +52,5 @@ final class LocaleServiceProvider extends PackageServiceProvider
 	public function packageRegistered(): void
 	{
 		$this->app->singleton(LocaleService::class);
-		$this->app->singleton(TranslationService::class);
-	}
-
-	/**
-	 * Boot package services.
-	 *
-	 * @return void
-	 */
-	public function packageBooted(): void
-	{
-		Event::listen(
-			[TranslationCreated::class, TranslationUpdated::class, TranslationDeleted::class],
-			InvalidateTranslationCache::class,
-		);
 	}
 }
